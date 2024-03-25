@@ -1,34 +1,39 @@
 {% extends 'auth/base.html' %}
 
 {% block content %}
+
+
     <div class="register-form p-4 rounded shadow">
+
         <h2 class="text-center mb-4">{{ title }}</h2>
+
         <form method="post">
+            {{ form.hidden_tag() }}
             <div class="form-group">
-                <label for="name">Имя:</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Введите имя">
+                {{ form.username.label }}
+                {{ form.username() }}
             </div>
             <div class="form-group">
-                <label for="email">Электронная почта:</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Введите электронную почту">
+                {{ form.email.label }}
+                {{ form.email() }}
             </div>
             <div class="form-group">
-                <label for="phone">Номер телефона:</label>
-                <input type="tel" class="form-control" id="phone" name="phone" placeholder="Введите номер телефона">
+                {{ form.phone.label }}
+                {{ form.phone() }}
             </div>
             <div class="form-group">
-                <label for="password">Пароль:</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Введите пароль">
+                {{ form.password.label }}
+                {{ form.password() }}
             </div>
             <div class="form-group">
-                <label for="confirm-password">Подтверждение пароля:</label>
-                <input type="password" class="form-control" id="confirm-password" name="password2" placeholder="Подтвердите пароль">
+                {{ form.password2.label }}
+                {{ form.password2() }}
             </div>
-            <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
+            {{ form.submit }}
             <p class="text-center mt-3">
                 Уже имеете аккаунт? <a href="{{ url_for('auth.login_page') }}">Войти</a>
             </p>
         </form>
+        {% include 'alert_flash.html' %}
     </div>
-
 {% endblock %}
