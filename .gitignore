@@ -313,3 +313,5 @@ pip-selfcheck.json
 .pg_data
 .pgadmin-data
 /*/migrations/000*.py
+/app/data.db
+/data.db

@@ -1,0 +1,40 @@
+{% for employee in employees %}
+    {% if employee.id %}
+        <div class="modal fade" id="profile_employee_{{ employee.id }}" role="dialog" data-bs-backdrop="static"
+             data-bs-keyboard="false"
+             tabindex="-1" aria-labelledby="editEmployeeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content p-4 rounded shadow">
+
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Профиль сотрудника</h1>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <ul class="profile">
+                                <li>Имя:<br>
+                                    {{ employee.first_name }}</li>
+                                <li>Фамилия:<br>
+                                    {{ employee.last_name }}</li>
+                                <li>Телефон:<br>
+                                    {{ employee.phone }}</li>
+                                <li>Статус:<br>
+                                    {{ employee.get_status() }}</li>
+                                <li>Описание:<br>
+                                    {{ employee.description }}</li>
+                            </ul>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть
+                        </button>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}

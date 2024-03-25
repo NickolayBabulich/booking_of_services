@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+from enum import Enum
 
 db = SQLAlchemy()
 
@@ -20,3 +21,25 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
+
+
+class EmployeeStatus(Enum):
+    ACTIVE = "Работает"
+    INACTIVE = "Не работает"
+    VACATION = "Отпуск"
+
+
+class Employees(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(60), nullable=False)
+    last_name = db.Column(db.String(60), nullable=False)
+    phone = db.Column(db.String(20))
+    status = db.Column(db.Enum(EmployeeStatus), default=EmployeeStatus.ACTIVE, nullable=False)
+    description = db.Column(db.Text)
+    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    def get_status(self):
+        return self.status.value
+
+    def __repr__(self):
+        return '<Employee {}>'.format(self.name)

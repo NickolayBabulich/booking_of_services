@@ -2,6 +2,7 @@
 {% block content %}
     <div class="container-fluid">
         <div class="row">
+            {% include 'alert_flash.html' %}
             <h1>Booking of services - Сервис бронирования услуг</h1>
 
             <p>Сервис бронирования услуг - это онлайн-платформа, которая позволяет предпринимателям создавать и
@@ -31,10 +32,13 @@
                 экономить время и усилия как предпринимателям, так и клиентам, и улучшает общий опыт работы с
                 услугами.</p>
             <div class="row col-2">
-            <a href="{{ url_for ('auth.login_page') }}" class="btn btn-success mt-3">Личный кабинет</a>
-
-             <a href="#" class="btn btn-primary mt-3">Забронировать услугу</a>
-</div>
+                {% if current_user.is_authenticated %}
+                <a href="{{ url_for ('cabinet.cabinet_page') }}" class="btn btn-success mt-3">Личный кабинет</a>
+                {% else %}
+                <a href="{{ url_for ('auth.login_page') }}" class="btn btn-success mt-3">Личный кабинет</a>
+                {% endif %}
+                <a href="#" class="btn btn-primary mt-3">Забронировать услугу</a>
+            </div>
         </div>
     </div>
 {% endblock %}
