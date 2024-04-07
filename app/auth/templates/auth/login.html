@@ -1,22 +1,25 @@
 {% extends 'auth/base.html' %}
 
 {% block content %}
-<div class="login-form p-4 rounded shadow">
-    <h2 class="text-center mb-4">{{ title }}</h2>
-    <form method="post">
-        <div class="form-group">
-            <label for="username">Логин:</label>
-            <input type="text" class="form-control" id="username" name="username" placeholder="Введите логин">
-        </div>
-        <div class="form-group mt-3">
-            <label for="password">Пароль:</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Введите пароль">
-        </div>
-        <button type="submit" class="btn btn-primary w-100">Войти</button>
-        <p class="text-center mt-3">
-            Не имеете аккаунта? <a href="{{ url_for('auth.registration_page') }}">Зарегистрироваться</a>
-        </p>
-    </form>
-</div>
+    <div class="login-form p-4 rounded shadow">
+        <h2 class="text-center mb-4">{{ title }}</h2>
+        <form action="{{ url_for('auth.process_login') }}" method="post">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.username.label }}
+                {{ form.username() }}
+            </div>
+            <div class="form-group">
+                {{ form.password.label }}
+                {{ form.password() }}
+            </div>
+            {{ form.submit }}
+
+            <p class="text-center mt-3">
+                Не имеете аккаунта? <a href="{{ url_for('auth.registration_page') }}">Зарегистрироваться</a>
+            </p>
+        </form>
+        {% include 'alert_flash.html' %}
+    </div>
 
 {% endblock %}
