@@ -1,5 +1,5 @@
 from flask import Flask
-from app.models import db
+from app.models import db, Notification
 from app.views import home_page, cabinet_page
 from app.auth.views.views import auth_bp, login_manager
 from app.employees.views.views import employees_bp
@@ -22,4 +22,10 @@ def create_app():
     app.register_blueprint(reserve_bp)
     app.register_blueprint(notification_bp, url_prefix='/cabinet/')
     login_manager.init_app(app)
+
+    @app.context_processor
+    def inject_notifications():
+        notifications = db.session.query(Notification).all()
+        return dict(notifications=notifications)
+
     return app
