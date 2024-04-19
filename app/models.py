@@ -99,3 +99,6 @@ class Notification(db.Model):
 
     def __repr__(self):
         return '<Notification {}>'.format(self.description)
+
+    def __str__(self):
+        return f'{self.description}'

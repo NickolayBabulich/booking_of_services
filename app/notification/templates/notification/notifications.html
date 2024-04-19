@@ -7,18 +7,14 @@
                 <div class="col-md-9 col-lg-12 p-4">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         {% if notifications %}
-                        <h2>У вас
-                            <span
-                                class="badge text-bg-primary rounded-pill">
-                {{ notifications|length }}
-            </span> не прочитанных уведомлений</h2>
+                        <h2>У вас есть не прочитанные уведомления</h2>
                         {% else %}
                         <h2>У вас нет не прочитанных уведомлений</h2>
                         {% endif %}
                     </div>
                     <hr>
                     {% for notification in notifications %}
-                        <div class="toast align-items-center text-bg-primary border-0 mb-3" role="alert"
+                        <div class="toast align-items-center text-bg-primary-user border-0 mb-3" role="alert"
                              aria-live="assertive"
                              aria-atomic="true">
                             <div class="d-flex">

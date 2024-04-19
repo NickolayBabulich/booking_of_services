@@ -1,3 +1,5 @@
+import datetime
+
 from flask import Blueprint, render_template, redirect, url_for, request
 
 from app.models import Scheduler, db
@@ -38,8 +40,12 @@ def add_reserve(id):
         scheduler.phone = form.phone.data
         scheduler.status = 'BOOKED'
         db.session.commit()
-        description = f'{scheduler.client_name}, номер {scheduler.phone} забронировал услугу'
+        description = (f'Клиент - {scheduler.client_name}, с номером {scheduler.phone}'
+                       f' записался на услугу {scheduler.service.title}'
+                       f' к мастеру {scheduler.employee.first_name} на {scheduler.date.strftime("%d.%m.%Y")}'
+                       f' в {scheduler.time.strftime("%H:%M")}')
         print(create_notification(description))
         return redirect(url_for('reserve.user_notification'))
     print(form.errors)
+
     return redirect('/')
