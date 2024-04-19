@@ -43,3 +43,59 @@ class Employees(db.Model):
 
     def __repr__(self):
         return '<Employee {}>'.format(self.name)
+
+
+class Services(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(150), nullable=False)
+    description = db.Column(db.Text)
+    price = db.Column(db.Integer, nullable=False)
+    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    def __repr__(self):
+        return '<Service {}>'.format(self.title)
+
+
+class ServiceStatus(Enum):
+    OPEN = "Открыта"
+    BOOKED = "Забронирована"
+    CLOSE = "Закрыта"
+
+
+class Scheduler(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    service_id = db.Column(db.Integer, db.ForeignKey('services.id'), nullable=False)
+    service = db.relationship('Services', backref=db.backref('schedulers', lazy=True))
+    employee_id = db.Column(db.Integer, db.ForeignKey('employees.id'), nullable=False)
+    employee = db.relationship('Employees', backref=db.backref('schedulers', lazy=True))
+    date = db.Column(db.Date)
+    time = db.Column(db.Time)
+    client_name = db.Column(db.String(120), nullable=True)
+    phone = db.Column(db.String(120), nullable=True)
+    status = db.Column(db.Enum(ServiceStatus), default=ServiceStatus.CLOSE, nullable=False)
+    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    def get_time_of_day(self):
+        hour = self.time.hour
+        if 6 <= hour < 12:
+            return 'утро'
+        elif 12 <= hour < 18:
+            return 'день'
+        else:
+            return 'вечер'
+
+    def get_status(self):
+        return self.status.value
+
+    def __repr__(self):
+        return '<Scheduler {}>'.format(self.status)
+
+
+class Notification(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    description = db.Column(db.String(250), nullable=False)
+    timestamp = db.Column(db.String(250), nullable=False)
+    if_read = db.Column(db.Boolean, default=False, nullable=False)
+
+    def __repr__(self):
+        return '<Notification {}>'.format(self.description)

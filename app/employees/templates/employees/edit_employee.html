@@ -1,0 +1,54 @@
+{% for employee in employees %}
+    {% if employee.id %}
+        <div class="modal fade" id="edit_employee_{{ employee.id }}" role="dialog" data-bs-backdrop="static"
+             data-bs-keyboard="false"
+             tabindex="-1" aria-labelledby="editEmployeeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content p-4 rounded shadow">
+                    <form action="{{ url_for('employees.edit_employee', id=employee.id) }}" method="post">
+                        {{ form.hidden_tag() }}
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Редактировать профиль</h1>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                {{ form.first_name.label }}
+                                {{ form.first_name(value=employee.first_name) }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.last_name.label }}
+                                {{ form.last_name(value=employee.last_name) }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.phone.label }}
+                                {{ form.phone(value=employee.phone) }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.status.label }}
+                                <select class="form-control" id="status" name="status"
+                                        placeholder="Введите имя сотрудника" value="{{ employee.status.name }}">
+                                    {% for status in form.status.choices %}
+                                        <option value="{{ status[0] }}"
+                                                {% if status[0] == employee.status.name %}selected{% endif %}>
+                                            {{ status[1] }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                {{ form.description.label }}
+                                <textarea class="form-control" id="description" name="description"
+                                          placeholder="Введите описание">{{ employee.description }}</textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть
+                            </button>
+                            {{ form.submit(value='Сохранить') }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}

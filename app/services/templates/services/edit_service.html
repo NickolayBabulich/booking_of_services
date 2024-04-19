@@ -1,0 +1,38 @@
+{% for service in services %}
+    {% if service.id %}
+        <div class="modal fade" id="edit_service_{{ service.id }}" role="dialog" data-bs-backdrop="static"
+             data-bs-keyboard="false"
+             tabindex="-1" aria-labelledby="editServiceModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content p-4 rounded shadow">
+                    <form action="{{ url_for('services.edit_service', id=service.id) }}" method="post">
+                        {{ form.hidden_tag() }}
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Редактировать услугу</h1>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                {{ form.title.label }}
+                                {{ form.title(value=service.title) }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.description.label }}
+                                <textarea class="form-control" id="description" name="description"
+                                          placeholder="Введите описание">{{ service.description }}</textarea>
+                            </div>
+                            <div class="mb-3">
+                                {{ form.price.label }}
+                                {{ form.price(value=service.price) }}
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть
+                            </button>
+                            {{ form.submit(value='Сохранить') }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}

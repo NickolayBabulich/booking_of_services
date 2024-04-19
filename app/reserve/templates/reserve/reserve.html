@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+    {% include 'alert_flash.html' %}
+    {% include 'reserve/booking.html' %}
+    {% if if_service %}
+        <div class="text-center mt-5">
+            <h3>График свободных записей на услугу:</h3>
+            <h2> {{ if_service[0].service.title }}</h2>
+        </div>
+        <hr>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="morning-tab" data-bs-toggle="tab"
+                        data-bs-target="#morning-tab-pane"
+                        type="button" role="tab" aria-controls="morning-tab-pane" aria-selected="true">Утро
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="day-tab" data-bs-toggle="tab" data-bs-target="#day-tab-pane"
+                        type="button" role="tab" aria-controls="day-tab-pane" aria-selected="false">День
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="evening-tab" data-bs-toggle="tab" data-bs-target="#evening-tab-pane"
+                        type="button" role="tab" aria-controls="evening-tab-pane" aria-selected="false">Вечер
+                </button>
+            </li>
+        </ul>
+        <div class="tab-content mt-3" id="myTabContent">
+        <div class="tab-pane fade show active" id="morning-tab-pane" role="tabpanel"
+             aria-labelledby="morning-tab"
+             tabindex="0">
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-3">
+                {% for item in if_service if item.get_time_of_day() == 'утро' %}
+                    {% if item.employee.status.value == 'Работает' %}
+                        {% include 'reserve/card.html' %}
+{#                    {% else %}#}
+{#                        <p>На утро свободных записей нет, выберите другое время суток</p>#}
+                    {% endif %}
+                {% else %}
+                    <p>На утро свободных записей нет, выберите другое время суток</p>
+                {% endfor %}
+            </div>
+
+        </div>
+        <div class="tab-pane fade" id="day-tab-pane" role="tabpanel" aria-labelledby="day-tab"
+             tabindex="0">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-3">
+                {% for item in if_service if item.get_time_of_day() == 'день' %}
+                    {% if item.employee.status.value == 'Работает' %}
+                        {% include 'reserve/card.html' %}
+{#                    {% else %}#}
+{#                        <p>На день свободных записей нет, выберите другое время суток</p>#}
+                    {% endif %}
+                {% else %}
+                    <p>На день свободных записей нет, выберите другое время суток</p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="tab-pane fade" id="evening-tab-pane" role="tabpanel" aria-labelledby="evening-tab"
+             tabindex="0">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                {% for item in if_service if item.get_time_of_day() == 'вечер' %}
+                    {% if item.employee.status.value == 'Работает' %}
+                        {% include 'reserve/card.html' %}
+{#                    {% else %}#}
+{#                        <p>На вечер свободных записей нет, выберите другое время суток</p>#}
+                    {% endif %}
+                {% else %}
+                    <p>На вечер свободных записей нет, выберите другое время суток</p>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <div class="modal-dialog modal-dialog-centered position-absolute top-50 start-50 translate-middle"
+             style="width: 25rem;">
+
+            <div class="modal-content service p-4 rounded shadow">
+
+                <h3 class="text-center">Услуга не найдена</h3>
+                <hr>
+                <p class="text-center card-text">К сожалению данная услуга отсутствует или все доступные мастера и время
+                    заняты</p>
+                <hr>
+                <a href="{{ url_for ('home_page') }}" class="btn btn-primary">Вернуться на главную</a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
