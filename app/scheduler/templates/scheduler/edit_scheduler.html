@@ -1,0 +1,77 @@
+{% for item in scheduler %}
+    {% if item.id %}
+        <div class="modal fade" id="edit_scheduler_{{ item.id }}" role="dialog" data-bs-backdrop="static"
+             data-bs-keyboard="false"
+             tabindex="-1" aria-labelledby="editEmployeeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content p-4 rounded shadow">
+                    <form action="{{ url_for('scheduler.edit_scheduler', id=item.id) }}" method="post">
+                        {{ form.hidden_tag() }}
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Редактировать расписание</h1>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                {{ form.service.label }}
+                                <select class="form-control" id="service" name="service"
+                                        value="{{ item.service.id }}">
+                                    {% for service in form.service.choices %}
+                                        <option value="{{ service[0] }}"
+                                                {% if service[0] == item.service.id %}selected{% endif %}>
+                                            {{ service[1] }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                {{ form.employee.label }}
+                                <select class="form-control" id="employee" name="employee"
+                                        value="{{ item.employee.id }}">
+                                    {% for employee in form.employee.choices %}
+                                        <option value="{{ employee[0] }}"
+                                                {% if employee[0] == item.employee.id %}selected{% endif %}>
+                                            {{ employee[1] }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                {{ form.date.label }}
+                                {{ form.date(value=item.date) }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.time.label }}
+                                {{ form.time(value=item.time.strftime('%H:%M')) }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.client_name.label }}
+                                {{ form.client_name(value=item.client_name) }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.phone.label }}
+                                {{ form.phone(value=item.phone) }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.status.label }}
+                                <select class="form-control" id="status" name="status"
+                                        value="{{ item.status.name }}">
+                                    {% for status in form.status.choices %}
+                                        <option value="{{ status[0] }}"
+                                                {% if status[0] == item.status.name %}selected{% endif %}>
+                                            {{ status[1] }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть
+                            </button>
+                            {{ form.submit(value='Сохранить') }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}

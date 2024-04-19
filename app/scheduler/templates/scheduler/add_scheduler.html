@@ -1,0 +1,48 @@
+<div class="modal fade" id="create_scheduler" data-bs-backdrop="static" data-bs-keyboard="false"
+     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-4 rounded shadow">
+            <form action="{{ url_for('scheduler.add_scheduler') }}" method="post">
+                {{ form.hidden_tag() }}
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Добавить расписание</h1>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        {{ form.employee.label }}
+                        {{ form.employee() }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.service.label }}
+                        {{ form.service() }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.date.label }}
+                        {{ form.date }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.time.label }}
+                        {{ form.time }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.client_name.label }}
+                        {{ form.client_name() }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.phone.label }}
+                        {{ form.phone() }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.status.label }}
+                        {{ form.status() }}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть
+                    </button>
+                    {{ form.submit }}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

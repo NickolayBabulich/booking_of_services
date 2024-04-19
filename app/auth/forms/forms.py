@@ -17,7 +17,7 @@ class RegistrationForm(FlaskForm):
     email = EmailField('Электронная почта:', validators=[Email()],
                        render_kw={"class": "form-control", "placeholder": "Введите электронную почту"})
     phone = StringField('Номер телефона:', validators=[DataRequired()],
-                        render_kw={"class": "form-control", "placeholder": "Введите номер телефона"})
+                        render_kw={"class": "form-control", "type": "phone", "placeholder": "Введите номер телефона"})
     password = PasswordField('Пароль:', validators=[DataRequired()],
                              render_kw={"class": "form-control", "placeholder": "Введите пароль"})
     password2 = PasswordField('Подтверждение пароля:', validators=[DataRequired()],

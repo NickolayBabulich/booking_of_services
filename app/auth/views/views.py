@@ -53,7 +53,7 @@ def process_login():
             if user and user.check_password(password):
                 login_user(user)
                 flash('Пользователь вошел', 'alert-success')
-                return redirect(url_for('cabinet.cabinet_page'))
+                return redirect(url_for('cabinet_page'))
         flash('Неверное имя или пароль', 'alert-danger')
         return redirect(url_for('auth.login_page'))
 
@@ -82,6 +82,7 @@ def registration_page():
                 db.session.add(user)
                 db.session.commit()
                 flash('Пользователь зарегистрирован', 'alert-success')
+                return redirect(url_for('auth.login_page'))
         else:
             flash('Пароли не совпадают', 'alert-danger')
     return render_template('auth/registration.html', form=form)

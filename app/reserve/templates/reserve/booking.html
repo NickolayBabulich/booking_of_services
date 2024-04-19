@@ -1,0 +1,53 @@
+{% for item in if_service %}
+    <div class="modal fade" id="booking_{{ item.id }}" data-bs-backdrop="static" data-bs-keyboard="false"
+         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-4 rounded shadow">
+                <form action="{{ url_for('reserve.add_reserve', id=item.id) }}" method="post">
+                    {{ form.hidden_tag() }}
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Забронировать услугу</h1>
+                    </div>
+                    <div class="modal-header">
+                        <ul>
+                            <li>
+                                Вы будете записаны на услугу: {{ item.service.title }}
+                            </li>
+                             <li>
+                                Дата: {{ item.date.strftime('%d.%m.%Y') }}
+                            </li>
+                             <li>
+                                Время: {{ item.time.strftime('%H:%M') }}
+                            </li>
+                             <li>
+                                Мастер: {{ item.employee.first_name }}
+                            </li>
+                             <li>
+                                Цена: {{ item.service.price }}
+                            </li>
+                            <li>Пожалуйста укажите ваше имя и номер телефона</li>
+                        </ul>
+
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            {{ form.client_name.label }}
+                            {{ form.client_name }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.phone.label }}
+                            {{ form.phone }}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть
+                        </button>
+                        {{ form.submit }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endfor %}
+

@@ -1,0 +1,16 @@
+<div class="col">
+    <div class="card text-center">
+        <div class="card-body">
+            <p class="card-text">Дата: {{ item.date.strftime('%d.%m.%Y') }}</p>
+            <p class="card-text">Время: {{ item.time.strftime('%H:%M') }}</p>
+            <p class="card-text">Мастер: {{ item.employee.first_name }}</p>
+            <button type="button" class="btn btn-sm btn-primary me-2" data-bs-toggle="modal"
+                    data-bs-target="#booking_{{ item.id }}">
+                Записаться
+            </button>
+        </div>
+        <div class="card-footer text-body-secondary">
+            Цена: {{ item.service.price }} руб.
+        </div>
+    </div>
+</div>

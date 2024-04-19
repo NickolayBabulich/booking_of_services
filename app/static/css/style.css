@@ -136,11 +136,35 @@ tr:nth-child(even) {
     margin-bottom: 5px;
 }
 
-.profile{
+.profile {
 
 }
 
 .profile li {
     list-style: none;
     padding-bottom: 10px;
+}
+
+.nav-item .nav-link {
+    display: block;
+    padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
+    font-size: var(--bs-nav-link-font-size);
+    font-weight: var(--bs-nav-link-font-weight);
+    color: #fff;
+    text-decoration: none;
+    background: 0 0;
+    border: 0;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
+}
+
+.service {
+    background-color: #212529;
+}
+
+.toast:not(.show) {
+    display: block;
+}
+
+.toast {
+    --bs-toast-max-width: 700px;
 }

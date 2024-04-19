@@ -1,0 +1,32 @@
+<div class="modal fade" id="create_service" data-bs-backdrop="static" data-bs-keyboard="false"
+     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-4 rounded shadow">
+            <form action="{{ url_for('services.add_service') }}" method="post">
+                {{ form.hidden_tag() }}
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Добавить услугу</h1>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        {{ form.title.label }}
+                        {{ form.title() }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.description.label }}
+                        {{ form.description() }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.price.label }}
+                        {{ form.price() }}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть
+                    </button>
+                    {{ form.submit }}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
